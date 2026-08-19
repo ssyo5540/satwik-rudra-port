@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { hero, site, nav, projectStats } from "@/lib/content";
+import { asset } from "@/lib/asset";
 import Portrait from "@/components/ui/Portrait";
 import MobileMenu from "@/components/ui/MobileMenu";
 import { Counter } from "@/components/ui/Anim";
@@ -128,7 +129,9 @@ export default function Hero() {
             <span className="align-super text-[0.55em]">®</span>
           </a>
           <a
-            href={hero.mobileCta.href}
+            href={asset(hero.mobileCta.href)}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn btn-yellow ml-auto !px-4 !py-2.5 !text-[0.68rem]"
           >
             {hero.mobileCta.label}
@@ -225,7 +228,13 @@ export default function Hero() {
           {/* Buttons — desktop only */}
           <div className="hero-cta pointer-events-auto absolute bottom-[5%] left-[39%] hidden gap-3 lg:flex">
             {hero.buttons.map((b) => (
-              <a key={b.label} href={b.href} className="btn btn-yellow">
+              <a
+                key={b.label}
+                href={b.download ? asset(b.href) : b.href}
+                target={b.download ? "_blank" : undefined}
+                rel={b.download ? "noopener noreferrer" : undefined}
+                className="btn btn-yellow"
+              >
                 {b.label}
               </a>
             ))}

@@ -1,6 +1,6 @@
 /**
  * Single source of truth for every piece of copy on the site.
- * Edit here — no component holds hard-coded content.
+ * Edit here; no component holds hard-coded content.
  */
 
 export const site = {
@@ -8,11 +8,13 @@ export const site = {
   wordmark: "SATWIK",
   role: "Full-Stack Developer",
   location: "Dallas, TX",
-  email: "rudra.satwik1999@gmail.com",
-  title: "Satwik Rudra — Full-Stack Developer | Web & Mobile",
+  email: "satwikrudraa@gmail.com",
+  title: "Satwik Rudra | Full-Stack Developer, Web & Mobile",
   description:
     "Full-stack developer with 5+ years building web and mobile products with React, React Native, and Node.js. Currently at SevenTablets in Dallas.",
   url: "https://ssyo5540.github.io/satwik-rudra-port",
+  /** Rebuild with `node scripts/resume/build.mjs` after editing the HTML source. */
+  resume: "/assets/satwik-rudra-resume.pdf",
 };
 
 /** TODO: swap these for your real profiles before launch. */
@@ -50,11 +52,11 @@ export const hero = {
     { label: "Fast", glyph: "✳" },
   ],
   buttons: [
-    { label: "Get in Touch", href: `mailto:${site.email}` },
-    { label: "About Me", href: "#about" },
+    { label: "Resume", href: site.resume, download: true },
+    { label: "About Me", href: "#about", download: false },
   ],
   /** Primary action in the phone top bar. */
-  mobileCta: { label: "Get in Touch", href: `mailto:${site.email}` },
+  mobileCta: { label: "Resume", href: site.resume },
 };
 
 export const statement = {
@@ -77,7 +79,7 @@ export const about = {
     {
       year: "'20",
       title: "Into the stack",
-      body: "At MobillionLabs in Hyderabad I worked across the MEAN stack on SmartWinnr — Angular on the front, Node and MongoDB behind it. I also took the UI/UX Design Specialization from CalArts, which changed how I look at every interface I build.",
+      body: "At MobillionLabs in Hyderabad I worked across the MEAN stack on SmartWinnr, with Angular on the front and Node and MongoDB behind it. I also took the UI/UX Design Specialization from CalArts, which changed how I look at every interface I build.",
       tag: "MobillionLabs · Hyderabad",
     },
     {
@@ -89,7 +91,7 @@ export const about = {
     {
       year: "'22",
       title: "Mobile at scale",
-      body: "Copart put me on their mobile app with React Native and MobX. Performance work I did there made the app roughly 20% faster and cut crashes by about 30% — the first time I saw optimization measured in real user numbers.",
+      body: "Copart put me on their mobile app with React Native and MobX. Performance work I did there made the app roughly 20% faster and cut crashes by about 30%. It was the first time I saw optimization measured in real user numbers.",
       tag: "Copart · Dallas",
     },
     {
@@ -101,7 +103,7 @@ export const about = {
     {
       year: "'26",
       title: "Building my own",
-      body: "Atelier AI went live on the App Store and Google Play. Designed it, built it, shipped it, and now maintain it — the whole thing, start to finish, on my own.",
+      body: "Atelier AI went live on the App Store and Google Play. Designed it, built it, shipped it, and now maintain it. The whole thing, start to finish, on my own.",
       tag: "Atelier AI · App Store & Google Play",
     },
   ],
@@ -110,12 +112,12 @@ export const about = {
 export const work = {
   heading: ["Built to Ship,", "Made to Last"],
   intro:
-    "Over five years I've worked across auctions, enterprise sales enablement, and travel — turning product requirements into applications that hold up in production. Here's some of that work.",
+    "Over five years I've worked across auctions, enterprise sales enablement, and travel, turning product requirements into applications that hold up in production. Here's some of that work.",
   items: [
     {
       company: "SevenTablets",
       role: "Full Stack Developer",
-      period: "Aug 2023 — Present",
+      period: "Aug 2023 to Present",
       place: "Dallas, TX",
       body: "Building responsive React web apps and cross-platform React Native applications, backed by scalable Node and Express APIs. Introduced React Query with optimistic updates to cut redundant network calls and make the UI feel instant.",
       tags: ["React", "React Native", "Node.js", "React Query"],
@@ -124,7 +126,7 @@ export const work = {
     {
       company: "Copart",
       role: "Software Engineer Intern",
-      period: "Jun 2022 — Jul 2023",
+      period: "Jun 2022 to Jul 2023",
       place: "Dallas, TX",
       body: "Worked on the Copart mobile app in React Native with MobX state management. Performance and stability work delivered a ~20% faster app and ~30% fewer crashes, alongside a 40% drop in user-reported bugs.",
       tags: ["React Native", "MobX", "Performance"],
@@ -133,7 +135,7 @@ export const work = {
     {
       company: "MobillionLabs",
       role: "Junior Software Developer",
-      period: "Jul 2020 — Aug 2021",
+      period: "Jul 2020 to Aug 2021",
       place: "Hyderabad, India",
       body: "Developed the SmartWinnr platform on the MEAN stack. Built configurable Angular component libraries shared across applications, and RESTful services on Node, Express, and MongoDB.",
       tags: ["Angular", "Node.js", "MongoDB", "RxJS"],
@@ -142,7 +144,7 @@ export const work = {
     {
       company: "Akbar Travels",
       role: "Java Developer Intern",
-      period: "Jun 2019 — Nov 2019",
+      period: "Jun 2019 to Nov 2019",
       place: "Mumbai, India",
       body: "Built and tested web applications and microservices with Java and Spring Boot, integrating REST APIs with MySQL and MongoDB and securing them with Spring Security.",
       tags: ["Java", "Spring Boot", "REST"],
@@ -220,7 +222,7 @@ export const projects = {
       year: "2017",
       status: "Live",
       shotStyle: "web" as const,
-      body: "A portfolio site for a multimedia artist — illustration, film, and photography work presented on a dark, high-contrast canvas with custom illustrated artwork. One of my earliest freelance builds, still live.",
+      body: "A portfolio site for a multimedia artist, covering illustration, film, and photography work presented on a dark, high-contrast canvas with custom illustrated artwork. One of my earliest freelance builds, still live.",
       role: "Design Implementation, Frontend",
       tags: ["HTML", "CSS", "JavaScript", "Portfolio"],
       icon: null,
@@ -243,7 +245,7 @@ export const projects = {
       role: "Design, Engineering",
       tags: ["React", "AI", "Speech", "EdTech"],
       icon: null,
-      // Design screens exported from the product design file — the live URL is a
+      // Design screens exported from the product design file. The live URL is a
       // sign-in wall, so there are no shipped screens to capture yet.
       shots: [
         "/assets/syllabee/shot-01.png",
@@ -270,7 +272,7 @@ export const capabilities = {
   heading: ["What", "I Do?"],
   subheading: "Capabilities Overview",
   intro:
-    "Interface, logic, and delivery combined — turning a product requirement into something people can actually use, on whichever screen they're holding.",
+    "Interface, logic, and delivery combined, turning a product requirement into something people can actually use, on whichever screen they're holding.",
   items: [
     {
       title: "Frontend Engineering",
@@ -278,7 +280,7 @@ export const capabilities = {
     },
     {
       title: "Mobile Development",
-      body: "Cross-platform iOS and Android with React Native — native modules, push notifications, in-app purchases, and the full path to TestFlight and Google Play.",
+      body: "Cross-platform iOS and Android with React Native, covering native modules, push notifications, in-app purchases, and the full path to TestFlight and Google Play.",
     },
     {
       title: "Backend & APIs",
@@ -321,7 +323,7 @@ export const stack = [
 export const cta = {
   heading: "Have something in mind?",
   emphasis: "Let's talk.",
-  body: "Whether it's a product that needs building, an app that needs fixing, or a team that needs another pair of hands — I'm easy to reach.",
+  body: "Whether it's a product that needs building, an app that needs fixing, or a team that needs another pair of hands, I'm easy to reach.",
 };
 
 export const faq = {
@@ -332,7 +334,7 @@ export const faq = {
       a: "React and TypeScript on the web, React Native for mobile, and Node with Express behind both. React Query handles server state, Tailwind and shadcn/ui handle the surface. I'm comfortable dropping into Angular, Spring Boot, or Django when a project already lives there.",
     },
     {
-      q: "Web or mobile — which is the stronger side?",
+      q: "Web or mobile: which is the stronger side?",
       a: "Both, genuinely. React Native means the same mental model carries across, so I've spent five years moving between a browser and a phone without switching languages. Most of my recent work ships to all three targets at once.",
     },
     {

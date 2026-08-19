@@ -354,6 +354,23 @@ html.lenis body {
   will-change: transform;
 }
 
+/* Content offset for the fixed sidebar (lg+ only). The shell drops its
+   centred max-width there so content runs from the sidebar to the right edge,
+   matching the sidebar layout. */
+@media (min-width: 1024px) {
+  .with-sidebar .shell {
+    max-width: none;
+    margin-inline: 0;
+    padding-left: 344px;
+    padding-right: clamp(1.25rem, 4vw, 4.5rem);
+  }
+}
+@media (min-width: 1280px) {
+  .with-sidebar .shell {
+    padding-left: 378px;
+  }
+}
+
 /* Section shell */
 .shell {
   width: 100%;

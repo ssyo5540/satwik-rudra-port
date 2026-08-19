@@ -43,6 +43,7 @@ export default function Work() {
     <section
       ref={root}
       id="work"
+      data-panel="dark"
       className="work_section noise relative z-20 rounded-t-[28px] bg-ink py-20 text-cream md:rounded-t-[44px] md:py-28"
     >
       <div className="shell">

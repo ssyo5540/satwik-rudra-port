@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { nav, site } from "@/lib/content";
+import { asset } from "@/lib/asset";
 
 /** Sticky bar that drops in once the hero is out of the way. */
 export default function Nav() {
@@ -34,7 +35,7 @@ export default function Nav() {
   return (
     <div
       ref={root}
-      className="fixed inset-x-0 top-0 z-50 will-change-transform"
+      className="fixed inset-x-0 top-0 z-50 will-change-transform lg:hidden"
     >
       <div className="mx-auto mt-3 flex w-[calc(100%-1.5rem)] max-w-[1440px] items-center justify-between rounded-full border border-ink/10 bg-sand-3/80 px-4 py-2.5 backdrop-blur-xl md:px-6">
         <a
@@ -60,10 +61,12 @@ export default function Nav() {
         </nav>
 
         <a
-          href={`mailto:${site.email}`}
+          href={asset(site.resume)}
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn btn-solid !px-4 !py-2 !text-[0.65rem]"
         >
-          Get in Touch
+          Resume
         </a>
       </div>
     </div>

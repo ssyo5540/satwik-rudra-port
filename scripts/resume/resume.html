@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Satwik Rudra Resume</title>
+<style>
+  @page { size: A4; margin: 11mm 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 8.8pt; line-height: 1.34; color: #16160f; -webkit-print-color-adjust: exact;
+  }
+  a { color: #16160f; text-decoration: none; }
+  header { border-bottom: 2.5px solid #16160f; padding-bottom: 9px; margin-bottom: 13px; }
+  .name { font-size: 23pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+  .role { font-size: 10pt; font-weight: 600; margin-top: 4px; }
+  .role span { background: #f2f04a; padding: 1px 5px; }
+  .contact { margin-top: 7px; font-size: 8.6pt; color: #45453a; }
+  .contact b { color: #16160f; font-weight: 600; }
+  h2 {
+    font-size: 8.4pt; letter-spacing: 0.13em; text-transform: uppercase;
+    margin: 11px 0 5px; padding-bottom: 3px; border-bottom: 1px solid #c9c9b4; font-weight: 700;
+  }
+  .sum { margin: 0; }
+  .skills { display: grid; grid-template-columns: 118px 1fr; gap: 3px 10px; }
+  .skills dt { font-weight: 700; font-size: 8.6pt; }
+  .skills dd { margin: 0; color: #34342a; }
+  .job { margin-bottom: 8px; page-break-inside: avoid; }
+  .job-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .job-title { font-weight: 700; font-size: 10pt; }
+  .job-co { font-weight: 600; }
+  .job-meta { font-size: 8.4pt; color: #56564a; white-space: nowrap; }
+  ul { margin: 4px 0 0; padding-left: 14px; }
+  li { margin-bottom: 1.5px; }
+  .env { margin-top: 4px; font-size: 8.4pt; color: #56564a; }
+  .proj { margin-bottom: 6px; page-break-inside: avoid; }
+  .proj-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .proj-name { font-weight: 700; }
+  .tag { font-size: 7.6pt; border: 1px solid #b9b9a4; border-radius: 8px; padding: 0.5px 5px; margin-left: 4px; color: #45453a; }
+  .edu-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="name">Satwik Rudra</div>
+  <div class="role"><span>Full-Stack Developer</span> &nbsp;Web &amp; Mobile &nbsp;·&nbsp; React, React Native, Node.js</div>
+  <div class="contact">
+    <b>Dallas, TX</b> &nbsp;·&nbsp;
+    <a href="mailto:satwikrudraa@gmail.com">satwikrudraa@gmail.com</a> &nbsp;·&nbsp;
+    <a href="https://ssyo5540.github.io/satwik-rudra-port/">Portfolio</a> &nbsp;·&nbsp;
+    <a href="https://www.linkedin.com/in/satwikrudra">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://github.com/SatwikRudra">GitHub</a>
+  </div>
+</header>
+
+<h2>Summary</h2>
+<p class="sum">
+Full-stack developer with 5+ years building and shipping web and mobile products. Deep in the React ecosystem, React and Next.js on the web, React Native across iOS and Android, with Node and Express behind them. Comfortable owning a product end to end: I designed, built, and released <b>Atelier AI</b> to the App Store and Google Play on my own. Increasingly focused on shipping AI features into real products, from speech analysis and LLM chat assistants to support automation, and on using agentic tooling to move faster without giving up code quality.
+</p>
+
+<h2>Technical Skills</h2>
+<dl class="skills">
+  <dt>Frontend</dt><dd>React, Next.js, React Native, TypeScript, JavaScript (ES6+), Angular, HTML5, CSS3, Tailwind CSS, shadcn/ui, Material UI, Styled Components, SASS, Responsive Design</dd>
+  <dt>Backend</dt><dd>Node.js, Express, REST APIs, Spring Boot, Django, JWT auth, Socket.io, Microservices</dd>
+  <dt>AI &amp; Automation</dt><dd>LLM feature integration, conversational assistants and copilots, speech and pronunciation analysis, AI support automation, prompt design, Claude and Claude Code, Claude Skills, agentic coding workflows, AI-assisted code review and refactoring</dd>
+  <dt>State &amp; Data</dt><dd>React Query (TanStack), MobX, Redux patterns, React Context, RxJS, optimistic updates, caching strategy</dd>
+  <dt>Databases</dt><dd>MongoDB, MySQL, Firebase, Apache SOLR</dd>
+  <dt>Testing &amp; CI/CD</dt><dd>Jest, React Testing Library, Jasmine, Karma, GitHub Actions, Jenkins, TestFlight, Google Play releases</dd>
+  <dt>Tools</dt><dd>Git, GitHub, GitLab, JIRA, Figma, Postman, Webpack, VS Code, Agile / Scrum</dd>
+</dl>
+
+<h2>Professional Experience</h2>
+
+<div class="job">
+  <div class="job-top">
+    <div class="job-title"><span class="job-co">SevenTablets Inc.</span> &nbsp;·&nbsp; Full Stack Developer</div>
+    <div class="job-meta">Dallas, TX &nbsp;·&nbsp; Aug 2023 to Present</div>
+  </div>
+  <ul>
+    <li>Build and maintain responsive React applications and cross-platform React Native apps for iOS and Android, from Figma handoff through store release.</li>
+    <li>Introduced React Query for server-state management with optimistic updates, cutting redundant network calls and making the UI respond instantly while syncing in the background.</li>
+    <li>Built scalable REST APIs in Node.js and Express serving both web and mobile clients, with JWT authentication and custom middleware protecting sensitive routes.</li>
+    <li>Created a reusable component library on shadcn/ui and Tailwind primitives, accelerating feature work and removing duplication across projects.</li>
+    <li>Integrated native device capabilities in React Native including push notifications, secure local storage, camera access, and in-app purchases.</li>
+    <li>Added real-time features such as live notifications and instant messaging using Socket.io.</li>
+    <li>Use AI-assisted development and agentic coding tools day to day for scaffolding, refactoring, and code review, while keeping human review on every change that ships.</li>
+    <li>Ensure quality with Jest unit tests and peer review in an Agile environment; prepare TestFlight and Play Store builds for client testing.</li>
+  </ul>
+  <div class="env"><b>Environment:</b> React, React Native, Node.js, Express, React Query, TypeScript, shadcn/ui, Tailwind CSS, Firebase, Jest, GitHub, JIRA, Agile</div>
+</div>
+
+<div class="job">
+  <div class="job-top">
+    <div class="job-title"><span class="job-co">Copart Inc.</span> &nbsp;·&nbsp; Software Engineer Intern</div>
+    <div class="job-meta">Dallas, TX &nbsp;·&nbsp; Jun 2022 to Jul 2023</div>
+  </div>
+  <ul>
+    <li>Developed features and performance work on the Copart mobile app in React Native, contributing to a roughly 20% faster app and about 30% fewer crashes.</li>
+    <li>Reduced user-reported bugs by around 40% through systematic testing, debugging, and error-handling work across API and UI failure paths.</li>
+    <li>Managed application state with MobX and built core components including tab bars, map views, image and document pickers, push notifications, and authentication flows.</li>
+    <li>Consumed REST services with Axios, handling JSON payloads and building validation on user input before it reached the backend.</li>
+    <li>Partnered with UX designers to keep the experience consistent across iOS and Android.</li>
+  </ul>
+  <div class="env"><b>Environment:</b> React Native, MobX, JavaScript, Material UI, Styled Components, Jest, React Testing Library, GitHub, Jenkins, JIRA</div>
+</div>
+
+<div class="job">
+  <div class="job-top">
+    <div class="job-title"><span class="job-co">MobillionLabs</span> &nbsp;·&nbsp; Junior Software Developer</div>
+    <div class="job-meta">Hyderabad, India &nbsp;·&nbsp; Jul 2020 to Aug 2021</div>
+  </div>
+  <ul>
+    <li>Developed the SmartWinnr platform on the MEAN stack, building Angular front-end features backed by Node, Express, and MongoDB services.</li>
+    <li>Built configurable Angular component libraries driven by config files and shared across multiple applications, reducing duplicated work between teams.</li>
+    <li>Applied RxJS observables for reactive data flows and improved performance with Angular lazy-loaded feature modules.</li>
+    <li>Wrote unit tests with Jasmine and Karma, and used Postman for API verification.</li>
+    <li>Built responsive layouts across mobile, tablet, and desktop using SASS and LESS preprocessors.</li>
+  </ul>
+  <div class="env"><b>Environment:</b> Angular 8/9, TypeScript, RxJS, Node.js, Express, MongoDB, MySQL, SASS, LESS, Jasmine, Karma, Git, JIRA</div>
+</div>
+
+<div class="job">
+  <div class="job-top">
+    <div class="job-title"><span class="job-co">Akbar Travels Pvt Ltd</span> &nbsp;·&nbsp; Java Developer Intern</div>
+    <div class="job-meta">Mumbai, India &nbsp;·&nbsp; Jun 2019 to Nov 2019</div>
+  </div>
+  <ul>
+    <li>Built and tested web applications and microservices with Java and Spring Boot, integrating REST APIs with MySQL and MongoDB.</li>
+    <li>Implemented authentication and authorization with Spring Security, and contributed front-end validation in JavaScript and jQuery.</li>
+    <li>Worked in a Scrum team, applying standard design patterns and taking part in code review.</li>
+  </ul>
+  <div class="env"><b>Environment:</b> Java, Spring Boot, Spring Security, REST, MySQL, MongoDB, HTML, CSS, JavaScript, jQuery, Git</div>
+</div>
+
+<h2>Selected Projects</h2>
+
+<div class="proj">
+  <div class="proj-top">
+    <div class="proj-name">Atelier AI &nbsp;·&nbsp; Smart Wardrobe <span class="tag">Personal</span><span class="tag">Live</span></div>
+    <div class="job-meta">iOS &amp; Android · 2026</div>
+  </div>
+  <div>An AI stylist for clothes you already own. Users catalogue their wardrobe, then chat with an assistant that builds real outfits from their own pieces based on occasion and weather. Designed, built, shipped, and maintained solo, including both store releases. <b>React Native, LLM integration, Firebase.</b></div>
+</div>
+
+<div class="proj">
+  <div class="proj-top">
+    <div class="proj-name">Syllabee &nbsp;·&nbsp; AI Reading Tutor <span class="tag">Personal</span><span class="tag">In Progress</span></div>
+    <div class="job-meta">Web · 2026</div>
+  </div>
+  <div>A reading tutor for children aged three to seven. Children read aloud while the model analyses pronunciation in real time; a separate parent view tracks phoneme-level progress. Two distinct surfaces in one product, with the child view built icon-first for large touch targets. <b>React, speech analysis, LLM feedback.</b></div>
+</div>
+
+<div class="proj">
+  <div class="proj-top">
+    <div class="proj-name">BOTU &nbsp;·&nbsp; AI DevOps Automation <span class="tag">Freelance</span><span class="tag">Live</span></div>
+    <div class="job-meta">Web · 2026</div>
+  </div>
+  <div>Product UI for an autonomous DevOps platform. Built an AI chatbot for support automation, integrated a conversational DevOps copilot, and implemented a React Flow canvas rendering cloud service architectures as an explorable graph. <b>React, React Flow, AI copilot integration.</b></div>
+</div>
+
+<div class="proj">
+  <div class="proj-top">
+    <div class="proj-name">Santosh Vemula &nbsp;·&nbsp; Artist Portfolio <span class="tag">Freelance</span><span class="tag">Live</span></div>
+    <div class="job-meta">Web · 2017</div>
+  </div>
+  <div>Portfolio site for a multimedia artist, presenting illustration, film, and photography work on a dark, high-contrast canvas. One of my earliest freelance builds and still live. <b>HTML, CSS, JavaScript.</b></div>
+</div>
+
+<h2>Education</h2>
+<div class="edu-row">
+  <div><b>M.S. Computer Science</b>, University of Missouri, Kansas City</div>
+  <div class="job-meta">Aug 2021 to Dec 2022 &nbsp;·&nbsp; GPA 3.5/4.0</div>
+</div>
+<div class="edu-row">
+  <div><b>B.Tech Computer Science &amp; Engineering</b>, Jawaharlal Nehru Technological University</div>
+  <div class="job-meta">Jul 2016 to May 2020 &nbsp;·&nbsp; GPA 8.3/10</div>
+</div>
+
+<h2>Certifications</h2>
+<div>UI/UX Design Specialization, California Institute of the Arts (July 2020)</div>
+
+</body>
+</html>

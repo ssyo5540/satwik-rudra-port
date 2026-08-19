@@ -9,6 +9,7 @@ export default function CTA() {
   return (
     <section
       id="contact"
+      data-panel="dark"
       className="cta_section noise relative z-20 overflow-hidden rounded-t-[28px] bg-ink py-20 text-cream md:rounded-t-[44px] md:py-32"
     >
       {/* Portrait ghosted behind the copy */}

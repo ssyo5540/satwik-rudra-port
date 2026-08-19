@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import Sidebar from "@/components/Sidebar";
 import Hero from "@/components/Hero";
 import Statement from "@/components/Statement";
 import Journey from "@/components/Journey";
@@ -12,18 +13,27 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
+      {/* Compact bar for < lg; the sidebar takes over above that. */}
       <Nav />
+      <Sidebar />
+
       <main>
         <Hero />
-        <Statement />
-        <Journey />
-        <Work />
-        <Projects />
-        <Capabilities />
-        <CTA />
-        <FAQ />
+        {/* Everything past the hero is inset to clear the fixed sidebar. */}
+        <div className="with-sidebar">
+          <Statement />
+          <Journey />
+          <Work />
+          <Projects />
+          <Capabilities />
+          <CTA />
+          <FAQ />
+        </div>
       </main>
-      <Footer />
+
+      <div className="with-sidebar">
+        <Footer />
+      </div>
     </>
   );
 }
