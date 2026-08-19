@@ -5,6 +5,7 @@ import Statement from "@/components/Statement";
 import Journey from "@/components/Journey";
 import Work from "@/components/Work";
 import Projects from "@/components/Projects";
+import Education from "@/components/Education";
 import Capabilities from "@/components/Capabilities";
 import CTA from "@/components/CTA";
 import FAQ from "@/components/FAQ";
@@ -25,6 +26,7 @@ export default function Home() {
           <Journey />
           <Work />
           <Projects />
+          <Education />
           <Capabilities />
           <CTA />
           <FAQ />

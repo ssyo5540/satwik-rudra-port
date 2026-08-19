@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <radialGradient id="bg" cx="45%" cy="42%" r="72%">
+      <stop offset="0%"  stop-color="#3f2039"/>
+      <stop offset="60%" stop-color="#31142b"/>
+      <stop offset="100%" stop-color="#240b1f"/>
+    </radialGradient>
+    <linearGradient id="nail" x1="20%" y1="8%" x2="85%" y2="95%">
+      <stop offset="0%"  stop-color="#f7ecf5"/>
+      <stop offset="45%" stop-color="#eeddec"/>
+      <stop offset="100%" stop-color="#e2c8de"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"  stop-color="#ffffff" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.42"/>
+    </linearGradient>
+    <clipPath id="nailClip">
+      <path d="M 440 232 C 556 386 596 552 596 662 C 596 760 526 814 440 814 C 354 814 284 760 284 662 C 284 552 324 386 440 232 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- almond nail -->
+  <path fill="url(#nail)" d="
+    M 440 232
+    C 556 386 596 552 596 662
+    C 596 760 526 814 440 814
+    C 354 814 284 760 284 662
+    C 284 552 324 386 440 232 Z"/>
+
+  <!-- gloss highlight (clipped to the nail so it cannot bleed past the edge) -->
+  <g clip-path="url(#nailClip)">
+    <ellipse cx="384" cy="436" rx="44" ry="146" fill="url(#sheen)" transform="rotate(-9 384 436)"/>
+  </g>
+
+  <!-- gold smile line -->
+  <path fill="#d9c481" d="
+    M 330 716
+    C 380 762 500 762 552 716
+    C 512 742 372 742 330 716 Z"/>
+
+  <!-- sparkles -->
+  <path fill="#e6d093" d="M 640 212 Q 648 292 720 300 Q 648 308 640 388 Q 632 308 560 300 Q 632 292 640 212 Z"/>
+  <path fill="#e6d093" d="M 708 366 Q 713 405 748 410 Q 713 415 708 454 Q 703 415 668 410 Q 703 405 708 366 Z"/>
+</svg>

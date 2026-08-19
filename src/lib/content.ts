@@ -29,6 +29,7 @@ export const nav = [
   { label: "About Me", href: "#about" },
   { label: "Experience", href: "#work" },
   { label: "Projects", href: "#projects" },
+  { label: "Education", href: "#education" },
   { label: "What I Do", href: "#capabilities" },
   { label: "FAQ", href: "#faq" },
 ];
@@ -234,6 +235,41 @@ export const projects = {
       links: [{ label: "Visit Site", href: "https://santoshvemula.com/" }],
     },
     {
+      slug: "advantage-painting",
+      name: "Advantage Painting",
+      tagline: "Painting & Remodelling Company",
+      kind: "Freelance",
+      year: "2017",
+      status: "Archived",
+      shotStyle: "web" as const,
+      body: "A business website for a painting and remodelling company, covering services, galleries of completed work, and enquiry forms. Hand-built with HTML, CSS, JavaScript, and jQuery before the framework era, and one of my earliest freelance jobs.",
+      role: "Design Implementation, Frontend",
+      tags: ["HTML", "CSS", "JavaScript", "jQuery"],
+      icon: "/assets/advantage/icon.png",
+      shots: ["/assets/advantage/shot-01.png"],
+      // advantagepainting.net no longer resolves, so there is no link to give.
+      links: [],
+    },
+    {
+      slug: "lacque",
+      name: "Lacqu\u00e8",
+      tagline: "Nail Salon Booking & Try-On",
+      kind: "Personal",
+      year: "2026",
+      status: "In Progress",
+      shotStyle: "phone" as const,
+      body: "A booking platform for nail salons with an artists marketplace, where clients browse studios, pick a service and an artist, and book in a few taps. The centrepiece is a virtual try-on built on gemini-fast-image, letting people preview a set on their own hands before committing to it.",
+      role: "Design, Engineering",
+      tags: ["React Native", "Gemini", "AI Try-On", "Marketplace"],
+      icon: "/assets/lacque/icon.png",
+      shots: [
+        "/assets/lacque/shot-01.png",
+        "/assets/lacque/shot-02.png",
+        "/assets/lacque/shot-03.png",
+      ],
+      links: [],
+    },
+    {
       slug: "syllabee",
       name: "Syllabee",
       tagline: "AI Reading Tutor for Kids",
@@ -266,6 +302,52 @@ export const projectStats = {
   total: projects.items.length,
   live: projects.items.filter((p) => p.status === "Live").length,
   ongoing: projects.items.filter((p) => p.status !== "Live").length,
+};
+
+export const education = {
+  eyebrow: "Education",
+  heading: ["Where the", "Foundations Came From"],
+  intro:
+    "Three degrees across two countries, with the current one taken remotely alongside full-time work.",
+  items: [
+    {
+      slug: "cumberlands",
+      degree: "Ph.D. Information Technology",
+      focus: "Specialization in Artificial Intelligence",
+      school: "University of the Cumberlands",
+      place: "Williamsburg, KY",
+      period: "In Progress",
+      status: "Current",
+      /** Distance format: on campus once per semester, remote otherwise. */
+      note: "Studied remotely alongside full-time work, attending campus once each semester.",
+      monogram: "UC",
+      accent: "#5b2a86",
+    },
+    {
+      slug: "umkc",
+      degree: "M.S. Computer Science",
+      focus: "GPA 3.5 / 4.0",
+      school: "University of Missouri, Kansas City",
+      place: "Kansas City, MO",
+      period: "Aug 2021 to Dec 2022",
+      status: "Completed",
+      note: "Graduate coursework across algorithms, distributed systems, and software engineering.",
+      monogram: "UMKC",
+      accent: "#f1b82d",
+    },
+    {
+      slug: "jntu",
+      degree: "B.Tech Computer Science & Engineering",
+      focus: "GPA 8.3 / 10",
+      school: "Jawaharlal Nehru Technological University",
+      place: "Hyderabad, India",
+      period: "Jul 2016 to May 2020",
+      status: "Completed",
+      note: "Where the first lines of production code and the first internships happened.",
+      monogram: "JNTU",
+      accent: "#1f6f8b",
+    },
+  ],
 };
 
 export const capabilities = {
