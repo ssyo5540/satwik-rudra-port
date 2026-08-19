@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - run: npm ci
@@ -34,11 +34,11 @@ jobs:
           # Project page => the site is served from a sub-path.
           NEXT_PUBLIC_BASE_PATH: /satwik-rudra-port
 
-      # enablement: switch the repo's Pages source to "GitHub Actions" via the
-      # API, so this does not depend on a manual settings change.
+      # NOTE: Pages must be enabled once by hand (Settings -> Pages -> Source ->
+      # GitHub Actions). The workflow token cannot create a Pages site from
+      # scratch -- it returns "Resource not accessible by integration" -- so
+      # `enablement` can only flip the source on a site that already exists.
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - uses: actions/upload-pages-artifact@v3
         with:
