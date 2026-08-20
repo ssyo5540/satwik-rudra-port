@@ -146,7 +146,7 @@ export default function Sidebar() {
                     : "bg-ink text-cream hover:bg-yellow hover:text-ink"
                 }`}
               >
-                {s.label === "LinkedIn" ? "in" : "gh"}
+                {s.label === "LinkedIn" ? "in" : s.label.slice(0, 2).toLowerCase()}
               </a>
             ))}
         </div>

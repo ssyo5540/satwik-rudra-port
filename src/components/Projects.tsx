@@ -129,7 +129,7 @@ export default function Projects() {
 
       {/* Pinned stage */}
       <div ref={stage} className="relative h-[100svh] overflow-hidden">
-        <div ref={track} className="flex h-full items-center will-change-transform">
+        <div ref={track} className="flex h-full items-center pb-24 will-change-transform md:pb-16">
           {/* Lead-in space so the first card sits near the middle of the
               viewport and the rest are clearly still to come. */}
           <div aria-hidden className="h-full w-[30vw] shrink-0 md:w-[50vw]" />
@@ -137,27 +137,27 @@ export default function Projects() {
           {projects.items.map((p, i) => (
             <article
               key={p.slug}
-              className="project-card group relative mr-5 h-[66vh] w-[78vw] shrink-0 overflow-hidden rounded-[24px] bg-[#1c1c17] sm:w-[52vw] md:mr-6 md:h-[68vh] md:w-[38vw] lg:w-[30vw] xl:w-[27vw]"
+              className="project-card group relative mr-5 flex h-[84vh] w-[80vw] shrink-0 flex-col overflow-hidden rounded-[24px] bg-[#1c1c17] sm:h-[78vh] sm:w-[56vw] md:mr-6 md:h-[76vh] md:w-[42vw] lg:w-[33vw] xl:w-[30vw]"
             >
               <CardArt project={p} />
 
-              {/* Legibility wash under the copy */}
+              {/* Top scrim so the index and tags stay readable over artwork */}
               <div
                 aria-hidden
-                className="absolute inset-0"
+                className="pointer-events-none absolute inset-x-0 top-0 h-32"
                 style={{
                   background:
-                    "linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.92) 30%, rgba(0,0,0,0.62) 46%, rgba(0,0,0,0.12) 68%, rgba(0,0,0,0.4) 100%)",
+                    "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%)",
                 }}
               />
 
               {/* Index */}
-              <span className="t-label absolute left-5 top-5 rounded-full bg-black/45 px-3 py-1.5 text-[0.58rem] text-cream/85 backdrop-blur-sm">
+              <span className="t-label absolute left-5 top-5 z-10 rounded-full bg-black/45 px-3 py-1.5 text-[0.58rem] text-cream/85 backdrop-blur-sm">
                 {String(i + 1).padStart(2, "0")}
               </span>
 
               {/* Tags */}
-              <ul className="absolute right-4 top-5 flex max-w-[62%] flex-wrap justify-end gap-1.5">
+              <ul className="absolute right-4 top-5 z-10 flex max-w-[62%] flex-wrap justify-end gap-1.5">
                 {p.tags.slice(0, 3).map((tag, ti) => (
                   <li
                     key={tag}
@@ -171,8 +171,17 @@ export default function Projects() {
                 ))}
               </ul>
 
-              {/* Copy */}
-              <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
+              {/* Artwork breathing room: the card art sits behind this spacer. */}
+              <div aria-hidden className="min-h-[12%] flex-1 sm:min-h-[20%]" />
+
+              {/* Copy: normal flow, so the full description always fits. */}
+              <div
+                className="relative z-10 p-5 sm:p-6 md:p-7"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.97) 0%, rgba(0,0,0,0.94) 55%, rgba(0,0,0,0.78) 85%, rgba(0,0,0,0) 100%)",
+                }}
+              >
                 <div className="mb-3 flex flex-wrap items-center gap-2">
                   <span
                     className={`t-label rounded-full px-2.5 py-1 text-[0.52rem] ${
@@ -200,10 +209,10 @@ export default function Projects() {
                   </span>
                 </div>
 
-                <h3 className="t-h3 mb-2 text-[1.5rem] leading-tight text-cream md:text-[1.7rem]">
+                <h3 className="t-h3 mb-2 text-[1.3rem] leading-tight text-cream sm:text-[1.5rem] md:text-[1.7rem]">
                   {p.name}
                 </h3>
-                <p className="t-body mb-5 line-clamp-3 text-[0.88rem] text-cream/60">
+                <p className="t-body mb-4 text-[0.78rem] leading-relaxed text-cream/65 sm:mb-5 sm:text-[0.86rem]">
                   {p.body}
                 </p>
 

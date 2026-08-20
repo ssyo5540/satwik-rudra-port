@@ -17,10 +17,8 @@ export const site = {
   resume: "/assets/satwik-rudra-resume.pdf",
 };
 
-/** TODO: swap these for your real profiles before launch. */
 export const socials = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/satwikrudra" },
-  { label: "GitHub", href: "https://github.com/SatwikRudra" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/satwik-rudra/" },
   { label: "Email", href: `mailto:${site.email}` },
 ];
 
@@ -98,7 +96,7 @@ export const about = {
     {
       year: "'23",
       title: "Full-stack, end to end",
-      body: "At SevenTablets I stopped picking sides. React and React Native on the client, Node and Express behind them, React Query holding the middle. Figma files in, shipped products out.",
+      body: "At SevenTablets I stopped picking sides. React and React Native on the client, Node and Express behind them, React Query holding the middle. Fintech one quarter, health or logistics the next. Figma files in, shipped products out.",
       tag: "SevenTablets · Dallas",
     },
     {
@@ -113,15 +111,23 @@ export const about = {
 export const work = {
   heading: ["Built to Ship,", "Made to Last"],
   intro:
-    "Over five years I've worked across auctions, enterprise sales enablement, and travel, turning product requirements into applications that hold up in production. Here's some of that work.",
+    "Over five years I've worked across fintech, health, fashion, logistics, marketing, AI automation, auctions, and travel, turning product requirements into applications that hold up in production. Here's some of that work.",
   items: [
     {
       company: "SevenTablets",
       role: "Full Stack Developer",
       period: "Aug 2023 to Present",
       place: "Dallas, TX",
-      body: "Building responsive React web apps and cross-platform React Native applications, backed by scalable Node and Express APIs. Introduced React Query with optimistic updates to cut redundant network calls and make the UI feel instant.",
-      tags: ["React", "React Native", "Node.js", "React Query"],
+      body: "Building responsive React web apps and cross-platform React Native applications, backed by scalable Node and Express APIs. Client work spans fintech, health, fashion, logistics, marketing, and AI automation, so the stack stays constant while the domain keeps changing. Introduced React Query with optimistic updates to cut redundant network calls and make the UI feel instant.",
+      tags: ["React", "React Native", "Node.js", "AI Automation"],
+      domains: [
+        "Fintech",
+        "Health",
+        "Fashion",
+        "Logistics",
+        "Marketing",
+        "AI Automation",
+      ],
       accent: "#FFFF23",
     },
     {
@@ -249,6 +255,21 @@ export const projects = {
       shots: ["/assets/advantage/shot-01.png"],
       // advantagepainting.net no longer resolves, so there is no link to give.
       links: [],
+    },
+    {
+      slug: "celeb-toronto",
+      name: "Celeb Toronto",
+      tagline: "Fashion E-Commerce",
+      kind: "Freelance",
+      year: "2026",
+      status: "Opening Soon",
+      shotStyle: "web" as const,
+      body: "A Shopify storefront for a Toronto menswear label, covering the product catalogue, editorial collection pages, cart, and checkout, with theme work tuned to the brand rather than a stock template. The store opens to the public in December 2026 and sits behind Shopify's password gate until then.",
+      role: "Shopify Build, Theme Development",
+      tags: ["Shopify", "Liquid", "E-Commerce", "Fashion"],
+      icon: "/assets/celeb/icon.png",
+      shots: ["/assets/celeb/shot-01.png"],
+      links: [{ label: "Visit Site", href: "https://celebtoronto.com/" }],
     },
     {
       slug: "lacque",
