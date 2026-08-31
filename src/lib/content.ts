@@ -26,7 +26,8 @@ export const nav = [
   { label: "Home", href: "#hero" },
   { label: "About Me", href: "#about" },
   { label: "Experience", href: "#work" },
-  { label: "Projects", href: "#projects" },
+  { label: "Freelance", href: "#freelance" },
+  { label: "Personal", href: "#projects" },
   { label: "Education", href: "#education" },
   { label: "What I Do", href: "#capabilities" },
   { label: "FAQ", href: "#faq" },
@@ -160,46 +161,23 @@ export const work = {
   ],
 };
 
-export const projects = {
-  eyebrow: "Personal & Freelance",
-  heading: ["Things I Build", "Outside the Day Job"],
+export const booking = {
+  label: "Book a Call",
+  href: "https://cal.com/satwik-rudra-33cinv/30min",
+};
+
+/**
+ * Two rails with identical card UI: client work first, then the things I build
+ * for myself. `projectGroups` drives the order they render in.
+ */
+export const freelanceProjects = {
+  id: "freelance",
+  eyebrow: "Freelance",
+  heading: ["Work I've Shipped", "For Other People"],
   intro:
-    "Products I design, build, and ship on my own, plus freelance work for other people. Live projects first, in-progress below.",
+    "Client and contract builds, from Shopify storefronts to an AI DevOps platform. Live work first, with earlier jobs below. Open to new projects.",
+  cta: booking,
   items: [
-    {
-      slug: "atelier-ai",
-      name: "Atelier AI",
-      tagline: "Smart Wardrobe",
-      kind: "Personal",
-      year: "2026",
-      status: "Live",
-      shotStyle: "phone" as const,
-      body: "An AI stylist for the clothes you already own. Catalogue your wardrobe in seconds, then chat with an assistant that builds real outfits from your own pieces based on the occasion and the weather. Designed, built, and shipped solo to both stores.",
-      role: "Design, Engineering, Release",
-      tags: ["React Native", "AI", "iOS", "Android"],
-      icon: "/assets/atelier/icon.png",
-      shots: [
-        "/assets/atelier/shot-01.png",
-        "/assets/atelier/shot-02.png",
-        "/assets/atelier/shot-03.png",
-        "/assets/atelier/shot-04.png",
-        "/assets/atelier/shot-05.png",
-        "/assets/atelier/shot-06.png",
-        "/assets/atelier/shot-07.png",
-      ],
-      links: [
-        {
-          label: "App Store",
-          href: "https://apps.apple.com/us/app/atelier-ai-smart-wardrobe/id6761736308",
-        },
-        // Tester opt-in URL: it redirects to a Google sign-in rather than a
-        // public listing, so the label says Beta.
-        {
-          label: "Google Play Beta",
-          href: "https://play.google.com/apps/testing/com.atelieraidev.app",
-        },
-      ],
-    },
     {
       slug: "botu",
       name: "BOTU",
@@ -241,6 +219,21 @@ export const projects = {
       links: [{ label: "Visit Site", href: "https://santoshvemula.com/" }],
     },
     {
+      slug: "celeb-toronto",
+      name: "Celeb Toronto",
+      tagline: "Fashion E-Commerce",
+      kind: "Freelance",
+      year: "2026",
+      status: "Opening Soon",
+      shotStyle: "web" as const,
+      body: "A Shopify storefront for a Toronto menswear label, covering the product catalogue, editorial collection pages, cart, and checkout, with theme work tuned to the brand rather than a stock template. The store opens to the public in December 2026 and sits behind Shopify's password gate until then.",
+      role: "Shopify Build, Theme Development",
+      tags: ["Shopify", "Liquid", "E-Commerce", "Fashion"],
+      icon: "/assets/celeb/icon.png",
+      shots: ["/assets/celeb/shot-01.png"],
+      links: [{ label: "Visit Site", href: "https://celebtoronto.com/" }],
+    },
+    {
       slug: "advantage-painting",
       name: "Advantage Painting",
       tagline: "Painting & Remodelling Company",
@@ -256,20 +249,50 @@ export const projects = {
       // advantagepainting.net no longer resolves, so there is no link to give.
       links: [],
     },
+  ],
+};
+
+export const personalProjects = {
+  id: "projects",
+  eyebrow: "Personal",
+  heading: ["Things I Build", "Outside the Day Job"],
+  intro:
+    "Products I design, build, and ship on my own, end to end. Live projects first, in-progress below.",
+  cta: null,
+  items: [
     {
-      slug: "celeb-toronto",
-      name: "Celeb Toronto",
-      tagline: "Fashion E-Commerce",
-      kind: "Freelance",
+      slug: "atelier-ai",
+      name: "Atelier AI",
+      tagline: "Smart Wardrobe",
+      kind: "Personal",
       year: "2026",
-      status: "Opening Soon",
-      shotStyle: "web" as const,
-      body: "A Shopify storefront for a Toronto menswear label, covering the product catalogue, editorial collection pages, cart, and checkout, with theme work tuned to the brand rather than a stock template. The store opens to the public in December 2026 and sits behind Shopify's password gate until then.",
-      role: "Shopify Build, Theme Development",
-      tags: ["Shopify", "Liquid", "E-Commerce", "Fashion"],
-      icon: "/assets/celeb/icon.png",
-      shots: ["/assets/celeb/shot-01.png"],
-      links: [{ label: "Visit Site", href: "https://celebtoronto.com/" }],
+      status: "Live",
+      shotStyle: "phone" as const,
+      body: "An AI stylist for the clothes you already own. Catalogue your wardrobe in seconds, then chat with an assistant that builds real outfits from your own pieces based on the occasion and the weather. Designed, built, and shipped solo to both stores.",
+      role: "Design, Engineering, Release",
+      tags: ["React Native", "AI", "iOS", "Android"],
+      icon: "/assets/atelier/icon.png",
+      shots: [
+        "/assets/atelier/shot-01.png",
+        "/assets/atelier/shot-02.png",
+        "/assets/atelier/shot-03.png",
+        "/assets/atelier/shot-04.png",
+        "/assets/atelier/shot-05.png",
+        "/assets/atelier/shot-06.png",
+        "/assets/atelier/shot-07.png",
+      ],
+      links: [
+        {
+          label: "App Store",
+          href: "https://apps.apple.com/us/app/atelier-ai-smart-wardrobe/id6761736308",
+        },
+        // Tester opt-in URL: it redirects to a Google sign-in rather than a
+        // public listing, so the label says Beta.
+        {
+          label: "Google Play Beta",
+          href: "https://play.google.com/apps/testing/com.atelieraidev.app",
+        },
+      ],
     },
     {
       slug: "lacque",
@@ -315,14 +338,17 @@ export const projects = {
   ],
 };
 
-/**
- * Live counts for the hero card, derived from `projects` so they stay in sync
- * whenever a project is added or its status changes.
- */
+export const projectGroups = [freelanceProjects, personalProjects];
+
+export const allProjects = [
+  ...freelanceProjects.items,
+  ...personalProjects.items,
+];
+
 export const projectStats = {
-  total: projects.items.length,
-  live: projects.items.filter((p) => p.status === "Live").length,
-  ongoing: projects.items.filter((p) => p.status !== "Live").length,
+  total: allProjects.length,
+  live: allProjects.filter((p) => p.status === "Live").length,
+  ongoing: allProjects.filter((p) => p.status !== "Live").length,
 };
 
 export const education = {

@@ -4,11 +4,20 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsap";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
-import { projects } from "@/lib/content";
+import { allProjects, projectGroups } from "@/lib/content";
 import { asset } from "@/lib/asset";
 import { SplitLines } from "@/components/ui/Anim";
 
-type Project = (typeof projects.items)[number];
+type Project = (typeof allProjects)[number];
+
+type Group = {
+  id: string;
+  eyebrow: string;
+  heading: string[];
+  intro: string;
+  cta: { label: string; href: string } | null;
+  items: readonly Project[];
+};
 
 /** Card artwork: a browser shot fills the frame, phone shots sit as a stack. */
 function CardArt({ project }: { project: Project }) {
@@ -62,18 +71,27 @@ function CardArt({ project }: { project: Project }) {
   );
 }
 
-export default function Projects() {
+/**
+ * One horizontal rail of project cards. Both the freelance and the personal
+ * groups render through this, so the two sections stay visually identical.
+ */
+function ProjectRail({ group }: { group: Group }) {
   const root = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const total = projects.items.length;
+  const total = group.items.length;
 
   useIsomorphicLayoutEffect(() => {
     const el = root.current;
     const stageEl = stage.current;
     const trackEl = track.current;
     if (!el || !stageEl || !trackEl || prefersReducedMotion()) return;
+
+    // A rail with few enough cards to fit on screen has nothing to travel, so
+    // the pin distance is floored at 1px rather than going negative.
+    const travel = () =>
+      Math.max(1, trackEl.scrollWidth - window.innerWidth);
 
     const ctx = gsap.context(() => {
       // Pin the stage and turn vertical scroll into horizontal travel. The
@@ -82,7 +100,7 @@ export default function Projects() {
       const st = ScrollTrigger.create({
         trigger: stageEl,
         start: "top top",
-        end: () => "+=" + (trackEl.scrollWidth - window.innerWidth),
+        end: () => "+=" + travel(),
         pin: true,
         scrub: 1,
         anticipatePin: 1,
@@ -90,7 +108,7 @@ export default function Projects() {
         onUpdate: (self) =>
           setActive(Math.round(self.progress * (total - 1))),
         animation: gsap.to(trackEl, {
-          x: () => -(trackEl.scrollWidth - window.innerWidth),
+          x: () => -Math.max(0, trackEl.scrollWidth - window.innerWidth),
           ease: "none",
         }),
       });
@@ -106,23 +124,33 @@ export default function Projects() {
   return (
     <section
       ref={root}
-      id="projects"
+      id={group.id}
       className="relative z-20 bg-ink pt-20 text-cream md:pt-28"
     >
       <div className="shell">
         <div className="mb-10 grid gap-8 md:mb-14 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
             <span className="t-label mb-6 inline-block rounded-full border border-cream/25 px-4 py-2 text-[0.58rem] text-cream/70">
-              {projects.eyebrow}
+              {group.eyebrow}
             </span>
             <SplitLines className="t-h2 text-cream" as="h2">
-              {projects.heading.join("\n")}
+              {group.heading.join("\n")}
             </SplitLines>
           </div>
           <div className="md:col-span-5">
             <SplitLines className="t-body text-cream/55" as="p" delay={0.1}>
-              {projects.intro}
+              {group.intro}
             </SplitLines>
+            {group.cta && (
+              <a
+                href={group.cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-light mt-6"
+              >
+                {group.cta.label}
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -134,7 +162,7 @@ export default function Projects() {
               viewport and the rest are clearly still to come. */}
           <div aria-hidden className="h-full w-[30vw] shrink-0 md:w-[50vw]" />
 
-          {projects.items.map((p, i) => (
+          {group.items.map((p, i) => (
             <article
               key={p.slug}
               className="project-card group relative mr-5 flex h-[84vh] w-[80vw] shrink-0 flex-col overflow-hidden rounded-[24px] bg-[#1c1c17] sm:h-[78vh] sm:w-[56vw] md:mr-6 md:h-[76vh] md:w-[42vw] lg:w-[33vw] xl:w-[30vw]"
@@ -258,7 +286,7 @@ export default function Projects() {
         {/* Progress + controls */}
         <div className="shell pointer-events-none absolute inset-x-0 bottom-6 flex items-center justify-between gap-4 md:bottom-8">
           <div className="flex items-center gap-1.5" aria-hidden>
-            {projects.items.map((p, i) => (
+            {group.items.map((p, i) => (
               <span
                 key={p.slug}
                 className={`h-[3px] rounded-full transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -298,5 +326,15 @@ export default function Projects() {
 
       <div className="h-20 md:h-28" />
     </section>
+  );
+}
+
+export default function Projects() {
+  return (
+    <>
+      {projectGroups.map((group) => (
+        <ProjectRail key={group.id} group={group} />
+      ))}
+    </>
   );
 }
