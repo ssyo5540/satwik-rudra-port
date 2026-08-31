@@ -1,6 +1,6 @@
 "use client";
 
-import { cta, site, socials } from "@/lib/content";
+import { booking, cta, site, socials } from "@/lib/content";
 import { SplitLines } from "@/components/ui/Anim";
 import CopyEmail from "@/components/ui/CopyEmail";
 import Portrait from "@/components/ui/Portrait";
@@ -42,6 +42,16 @@ export default function CTA() {
         </SplitLines>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          {/* Same booking link as the freelance rail, styled as the primary
+              action here since this is the section that asks for the reply. */}
+          <a
+            href={booking.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-yellow"
+          >
+            {booking.label}
+          </a>
           <a href={`mailto:${site.email}`} className="btn btn-light">
             Send an Email
           </a>
