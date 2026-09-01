@@ -34,6 +34,10 @@
   li { margin-bottom: 1.5px; }
   .env { margin-top: 4px; font-size: 8.4pt; color: #56564a; }
   .proj { margin-bottom: 6px; page-break-inside: avoid; }
+  .proj-lg { page-break-inside: auto; }
+  /* The oldest roles may split across a page break; keeping them whole pushes
+     a near-empty third page. */
+  .job-old { page-break-inside: auto; }
   .proj-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
   .proj-name { font-weight: 700; }
   .tag { font-size: 7.6pt; border: 1px solid #b9b9a4; border-radius: 8px; padding: 0.5px 5px; margin-left: 4px; color: #45453a; }
@@ -48,7 +52,7 @@
   <div class="contact">
     <b>Dallas, TX</b> &nbsp;·&nbsp;
     <a href="mailto:satwikrudraa@gmail.com">satwikrudraa@gmail.com</a> &nbsp;·&nbsp;
-    <a href="https://ssyo5540.github.io/satwik-rudra-port/">Portfolio</a> &nbsp;·&nbsp;
+    <a href="https://www.satwikrudra.com/">Portfolio</a> &nbsp;·&nbsp;
     <a href="https://www.linkedin.com/in/satwik-rudra/">LinkedIn</a>
   </div>
 </header>
@@ -105,7 +109,7 @@ Full-stack developer with 5+ years building and shipping web and mobile products
   <div class="env"><b>Environment:</b> React Native, MobX, JavaScript, Material UI, Styled Components, Jest, React Testing Library, GitHub, Jenkins, JIRA</div>
 </div>
 
-<div class="job">
+<div class="job job-old">
   <div class="job-top">
     <div class="job-title"><span class="job-co">MobillionLabs</span> &nbsp;·&nbsp; Junior Software Developer</div>
     <div class="job-meta">Hyderabad, India &nbsp;·&nbsp; Jul 2020 to Aug 2021</div>
@@ -120,7 +124,7 @@ Full-stack developer with 5+ years building and shipping web and mobile products
   <div class="env"><b>Environment:</b> Angular 8/9, TypeScript, RxJS, Node.js, Express, MongoDB, MySQL, SASS, LESS, Jasmine, Karma, Git, JIRA</div>
 </div>
 
-<div class="job">
+<div class="job job-old">
   <div class="job-top">
     <div class="job-title"><span class="job-co">Akbar Travels Pvt Ltd</span> &nbsp;·&nbsp; Java Developer Intern</div>
     <div class="job-meta">Mumbai, India &nbsp;·&nbsp; Jun 2019 to Nov 2019</div>
@@ -135,12 +139,21 @@ Full-stack developer with 5+ years building and shipping web and mobile products
 
 <h2>Selected Projects</h2>
 
-<div class="proj">
+<div class="proj proj-lg">
   <div class="proj-top">
-    <div class="proj-name">Atelier AI &nbsp;·&nbsp; Smart Wardrobe <span class="tag">Personal</span><span class="tag">Live</span></div>
+    <div class="proj-name">Atelier AI (ClosetMuse) &nbsp;·&nbsp; AI Wardrobe &amp; Outfit Planning <span class="tag">Personal</span><span class="tag">Live</span></div>
     <div class="job-meta">iOS &amp; Android · 2026</div>
   </div>
-  <div>An AI stylist for clothes you already own. Users catalogue their wardrobe, then chat with an assistant that builds real outfits from their own pieces based on occasion and weather. Designed, built, shipped, and maintained solo, including both store releases. <b>React Native, LLM integration, Firebase.</b></div>
+  <ul>
+    <li>Architected and shipped a full-stack monorepo (~36K LOC across 280+ TypeScript files) spanning an Expo React Native app released on iOS and Android, an Express + Prisma/Postgres API, a Next.js admin analytics dashboard, and a shared schema package that keeps client and server types in lockstep.</li>
+    <li>Built a RAG and embedding-based personalization pipeline on Google Gemini: 768-dimension vector embeddings in pgvector, top-K semantic retrieval over a fashion-knowledge base, and a per-user preference vector learned from outfit feedback that pre-ranks the wardrobe to the most style-aligned items before prompting — reducing prompt token cost while improving suggestion relevance.</li>
+    <li>Designed a multi-user &ldquo;group stylist&rdquo; AI feature — a mention-triggered agent that reasons across several users' wardrobes under opt-in, per-group sharing controls, returns structured per-person, per-day outfit plans using constrained JSON generation, and maintains a pinned trip-brief state object so inference cost stays bounded instead of scaling with chat history.</li>
+    <li>Replaced a third-party realtime dependency with a first-party Server-Sent Events layer, multiplexing one authenticated connection across all of a user's group chats; events carry identifiers only, never content, so every read still flows through the permission-filtered API, and subscriptions are authorization-checked before any data is streamed.</li>
+    <li>Implemented a computer-vision wardrobe intake pipeline: HEIC-to-JPEG conversion, image normalization, automated garment classification, background removal, dominant-color extraction, and perceptual-hash duplicate detection at upload time.</li>
+    <li>Took the platform from a failed security audit to production release — refresh-token rotation with reuse detection and session-family revocation, schema-validated secrets that block startup on misconfiguration, per-endpoint rate limiting on authentication and OTP flows, SSRF protection with private-IP blocking and request timeouts on all outbound calls, and viewer-aware signed object URLs authorized at signing time.</li>
+    <li>Owned CI/CD and AI cost governance: automated pipeline running linting, type checks, and 120+ integration tests against a live Postgres instance with from-scratch schema verification, cloud deploys across separate development and production environments, an over-the-air update channel for JS-only releases, and a credit-metering system tracking per-token AI spend per user per billing period.</li>
+  </ul>
+  <div class="env"><b>TypeScript, React Native, Node, Postgres.</b></div>
 </div>
 
 <div class="proj">
