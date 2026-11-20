@@ -35,7 +35,7 @@ animations disabled — useful for checking layout or taking screenshots.
 | 1 | **Your portrait** — run `./scripts/make-portrait.sh <headshot>` | writes `public/assets/portrait.png` |
 | 2 | **Google Play URL** for Atelier AI | `src/lib/content.ts` → `projects.items[0].links` |
 | 3 | **LinkedIn / GitHub URLs** — currently guessed | `src/lib/content.ts` → `socials` |
-| 4 | **Live domain** — used for SEO metadata and Open Graph | `src/lib/content.ts` → `site.url` |
+| 4 | **Live domain** — `https://www.satwikrudra.com` (SEO metadata and Open Graph) | `src/lib/content.ts` → `site.url` |
 | 5 | **Hero stat numbers** — currently "5+ years", "4 teams" | `src/lib/content.ts` → `hero.stats` |
 
 The hero composition is built around the portrait sitting in front of the giant
@@ -150,44 +150,23 @@ Vocabulary defined in `src/lib/gsap.ts` and applied via `src/components/ui/Anim.
 
 All motion is disabled under `prefers-reduced-motion` and behind `?nomotion=1`.
 
-## Deploying (GitHub Pages)
+## Deploying (AWS S3 + CloudFront)
 
 The site builds to a fully static export (`output: "export"` → `./out`) and is
-deployed by [.github/workflows/deploy.yml](.github/workflows/deploy.yml) on
-every push to `main`.
+published to S3 behind CloudFront by
+[.github/workflows/deploy.yml](.github/workflows/deploy.yml) on every push to
+`main`. Live URL: https://www.satwikrudra.com
 
-**One-time setup in the repo:** Settings → Pages → Source → **GitHub Actions**.
+Setup, DNS and manual publishing: [infra/README.md](infra/README.md).
 
-Live URL: `https://ssyo5540.github.io/satwik-rudra-port/`
+### basePath
 
-### The basePath gotcha
-
-Pages serves this as a *project* page, so everything lives under
-`/satwik-rudra-port` rather than the domain root. CI sets
-`NEXT_PUBLIC_BASE_PATH=/satwik-rudra-port`, which feeds `basePath` and
-`assetPrefix` in `next.config.ts`. It is deliberately empty locally so
-`npm run dev` still serves from `http://localhost:3000/`.
-
-Because the export sets `images.unoptimized`, **`next/image` does not rewrite
-asset URLs for basePath** — raw paths would 404 in production. Any public asset
-referenced by path must go through the `asset()` helper:
+The site is served from the domain root, so `NEXT_PUBLIC_BASE_PATH` is unset
+everywhere. `next.config.ts` and the `asset()` helper still honour it, should the
+site ever be served from a sub-path again (for example a GitHub Pages project
+page at `/satwik-rudra-port`). Keep routing public asset paths through `asset()`:
 
 ```ts
 import { asset } from "@/lib/asset";
 <Image src={asset("/assets/foo.png")} … />
-```
-
-`public/.nojekyll` stops GitHub stripping the `_next` directory.
-
-### Moving to a custom domain later
-
-1. Drop the `NEXT_PUBLIC_BASE_PATH` env line from the workflow (root-served, no prefix).
-2. Add `public/CNAME` containing the domain.
-3. Point the DNS at GitHub Pages, and update `site.url` in `src/lib/content.ts`.
-
-### Verifying a build locally the way CI does
-
-```bash
-NEXT_PUBLIC_BASE_PATH=/satwik-rudra-port npm run build
-npx serve out   # or serve it under a matching sub-path
 ```

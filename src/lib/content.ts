@@ -12,7 +12,7 @@ export const site = {
   title: "Satwik Rudra | Full-Stack Developer, Web & Mobile",
   description:
     "Full-stack developer with 5+ years building web and mobile products with React, React Native, and Node.js. Currently at SevenTablets in Dallas.",
-  url: "https://ssyo5540.github.io/satwik-rudra-port",
+  url: "https://www.satwikrudra.com",
   /** Rebuild with `node scripts/resume/build.mjs` after editing the HTML source. */
   resume: "/assets/satwik-rudra-resume.pdf",
 };

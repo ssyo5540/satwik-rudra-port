@@ -1,0 +1,181 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  Portfolio (www.satwikrudra.com): a private S3 bucket behind CloudFront, and the role GitHub
+  Actions uses to publish a build. The certificate is requested outside this stack so its DNS
+  check can be added at GoDaddy first. Steps in infra/README.md.
+
+Parameters:
+  CertificateArn:
+    Type: String
+    AllowedPattern: '^arn:aws:acm:us-east-1:\d{12}:certificate/.+$'
+    Description: The issued us-east-1 certificate for the domain (infra/README.md, step 1).
+  DomainName:
+    Type: String
+    Default: www.satwikrudra.com
+    Description: The address the site is served on. The bare satwikrudra.com forwards here at GoDaddy.
+  GitHubOwner:
+    Type: String
+    Default: ssyo5540
+  GitHubRepo:
+    Type: String
+    Default: satwik-rudra-port
+  DeployBranch:
+    Type: String
+    Default: main
+    Description: Pushes to this branch publish the site.
+
+Resources:
+  SiteBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: { SSEAlgorithm: AES256 }
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules: [{ ObjectOwnership: BucketOwnerEnforced }]
+
+  # Only this distribution may read the bucket; no public access.
+  OriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub '${AWS::StackName}-site'
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  SiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref SiteBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: CloudFrontReads
+            Effect: Allow
+            Principal: { Service: cloudfront.amazonaws.com }
+            Action: s3:GetObject
+            Resource: !Sub '${SiteBucket.Arn}/*'
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
+
+  # The Next.js export writes each page as <path>/index.html (trailingSlash). S3 behind an
+  # origin access control has no index documents, so map /about/ and /about to that file.
+  PageRoutes:
+    Type: AWS::CloudFront::Function
+    Properties:
+      Name: !Sub '${AWS::StackName}-page-routes'
+      AutoPublish: true
+      FunctionConfig:
+        Comment: Serve <path>/index.html for page routes
+        Runtime: cloudfront-js-2.0
+      FunctionCode: |
+        function handler(event) {
+          var request = event.request;
+          var uri = request.uri;
+          if (uri.endsWith('/')) {
+            request.uri = uri + 'index.html';
+          } else if (uri.split('/').pop().indexOf('.') === -1) {
+            request.uri = uri + '/index.html';
+          }
+          return request;
+        }
+
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: Satwik Rudra portfolio
+        Aliases: [!Ref DomainName]
+        DefaultRootObject: index.html
+        HttpVersion: http2and3
+        IPV6Enabled: true
+        # North America and Europe edges only: the cheapest class.
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertificateArn
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        Origins:
+          - Id: site
+            DomainName: !GetAtt SiteBucket.RegionalDomainName
+            OriginAccessControlId: !GetAtt OriginAccessControl.Id
+            S3OriginConfig: { OriginAccessIdentity: '' }
+        DefaultCacheBehavior:
+          TargetOriginId: site
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD]
+          Compress: true
+          # Managed "CachingOptimized": follows the Cache-Control each file is uploaded with.
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          # Managed "SecurityHeadersPolicy": HSTS, nosniff, frame options, referrer policy.
+          ResponseHeadersPolicyId: 67f7725c-6f97-4210-82d7-5512b31e9d03
+          FunctionAssociations:
+            - EventType: viewer-request
+              FunctionARN: !GetAtt PageRoutes.FunctionMetadata.FunctionARN
+        # A missing file (S3 answers 403 when the bucket can't be listed) shows the 404 page.
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: /404.html
+            ErrorCachingMinTTL: 60
+
+  # Lets GitHub Actions sign in to this account without stored keys.
+  GitHubOidcProvider:
+    Type: AWS::IAM::OIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList: [sts.amazonaws.com]
+
+  DeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: satwik-portfolio-github-deploy
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Federated: !Ref GitHubOidcProvider
+            Action: sts:AssumeRoleWithWebIdentity
+            Condition:
+              StringEquals: { token.actions.githubusercontent.com:aud: sts.amazonaws.com }
+              # GitHub may send "immutable" subjects with owner and repo IDs, or the classic form.
+              StringLike:
+                token.actions.githubusercontent.com:sub:
+                  - !Sub 'repo:${GitHubOwner}@*/${GitHubRepo}@*:ref:refs/heads/${DeployBranch}'
+                  - !Sub 'repo:${GitHubOwner}/${GitHubRepo}:ref:refs/heads/${DeployBranch}'
+      Policies:
+        - PolicyName: publish
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: ListTheBucket
+                Effect: Allow
+                Action: s3:ListBucket
+                Resource: !GetAtt SiteBucket.Arn
+              - Sid: WriteTheFiles
+                Effect: Allow
+                Action: [s3:PutObject, s3:DeleteObject, s3:GetObject]
+                Resource: !Sub '${SiteBucket.Arn}/*'
+              - Sid: ClearTheCache
+                Effect: Allow
+                Action: cloudfront:CreateInvalidation
+                Resource: !Sub 'arn:aws:cloudfront::${AWS::AccountId}:distribution/${Distribution}'
+
+Outputs:
+  BucketName: { Value: !Ref SiteBucket, Description: Repository variable SITE_BUCKET }
+  DistributionId: { Value: !Ref Distribution, Description: Repository variable CLOUDFRONT_DISTRIBUTION_ID }
+  DistributionDomain:
+    Value: !GetAtt Distribution.DomainName
+    Description: The www CNAME at GoDaddy points here
+  DeployRoleArn: { Value: !GetAtt DeployRole.Arn, Description: Repository variable AWS_DEPLOY_ROLE_ARN }

@@ -1,23 +1,28 @@
-name: Deploy to GitHub Pages
+name: Deploy site
 
+# Builds the static export on every push to main and publishes it to S3 behind CloudFront
+# (infra/README.md). Repository variables: AWS_DEPLOY_ROLE_ARN, SITE_BUCKET,
+# CLOUDFRONT_DISTRIBUTION_ID.
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
   id-token: write
+  contents: read
 
 # Let a running deploy finish; queue at most one more.
 concurrency:
-  group: pages
+  group: deploy-site
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
+    # Skipped until the stack exists and its outputs are set as repository variables.
+    if: vars.AWS_DEPLOY_ROLE_ARN != ''
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -28,29 +33,36 @@ jobs:
 
       - run: npm ci
 
+      # Served from the domain root, so no basePath.
       - name: Build static export
         run: npm run build
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: Publish
         env:
-          # Project page => the site is served from a sub-path.
-          NEXT_PUBLIC_BASE_PATH: /satwik-rudra-port
+          BUCKET: ${{ vars.SITE_BUCKET }}
+        run: |
+          set -euo pipefail
+          # 1. Hashed build files first, kept for a year. Old ones stay, so a page loaded just
+          #    before this deploy can still fetch what it asks for.
+          aws s3 sync out/_next "s3://$BUCKET/_next" \
+            --cache-control "public, max-age=31536000, immutable"
+          # 2. Everything else that isn't a page (images, resume PDF, icons) for an hour.
+          #    Files no longer in the build are removed.
+          aws s3 sync out "s3://$BUCKET" --delete \
+            --exclude "_next/*" --exclude "*.html" --exclude "*.txt" \
+            --cache-control "public, max-age=3600"
+          # 3. Pages (and the RSC .txt payloads that go with them) last, never cached.
+          aws s3 sync out "s3://$BUCKET" --delete \
+            --exclude "*" --include "*.html" --include "*.txt" \
+            --cache-control "no-cache"
 
-      # The Pages site exists, so `enablement` can flip its build type back to
-      # "workflow". Without this, Pages can fall back to branch-based Jekyll and
-      # serve the README instead of this build.
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Clear the CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" --paths "/*" \
+            --query Invalidation.Id --output text
